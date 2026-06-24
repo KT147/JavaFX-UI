@@ -21,4 +21,24 @@ public class ToDoApp extends Application {
 	public static void main(String[] args) {
 		Application.launch(args);
 	}
+
+	@Override
+	public void stop() throws Exception {
+		try {
+			ToDoData.getInstance().storeTodoItems();
+
+		} catch (RuntimeException e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	@Override
+	public void init() throws Exception {
+		try {
+			ToDoData.getInstance().loadTodoItems();
+
+		} catch (RuntimeException e) {
+			throw new RuntimeException(e);
+		}
+	}
 }
