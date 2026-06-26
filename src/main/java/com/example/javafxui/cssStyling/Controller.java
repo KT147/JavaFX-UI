@@ -9,7 +9,11 @@ import javafx.scene.layout.GridPane;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.FileChooser;
 
+import java.awt.*;
 import java.io.File;
+import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
 
 public class Controller {
 
@@ -40,13 +44,29 @@ public class Controller {
 
 	@FXML
 	public void handleClick() {
-//		FileChooser chooser = new FileChooser();
-		DirectoryChooser chooser = new DirectoryChooser();
-		File file = chooser.showDialog(gridPane.getScene().getWindow());
+		FileChooser chooser = new FileChooser();
+		chooser.setTitle("Save Application File");
+		chooser.getExtensionFilters().addAll(
+				new FileChooser.ExtensionFilter("Zip", "*.zip"),
+				new FileChooser.ExtensionFilter("PDF", "*.pdf"),
+				new FileChooser.ExtensionFilter("Images", "*.jpg", "*.png"),
+				new FileChooser.ExtensionFilter("All Files", "*.*")
+		);
+//		DirectoryChooser chooser = new DirectoryChooser();
+		File file = chooser.showOpenDialog(gridPane.getScene().getWindow());
 		if (file != null) {
 			System.out.println(file.getPath());
 		} else {
 			System.out.println("Cancelled");
+		}
+	}
+
+	@FXML
+	public void handleLinkClick() {
+		try {
+			Desktop.getDesktop().browse(new URI("https://www.javafx.com"));
+		} catch (IOException | URISyntaxException e) {
+			throw new RuntimeException(e);
 		}
 	}
 }

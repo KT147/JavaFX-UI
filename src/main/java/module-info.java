@@ -1,6 +1,7 @@
 module com.example.javafxui {
 	requires javafx.controls;
 	requires javafx.fxml;
+	requires java.desktop;
 
 
 	opens com.example.javafxui to javafx.fxml;
